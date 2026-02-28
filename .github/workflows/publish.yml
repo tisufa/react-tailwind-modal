@@ -18,7 +18,10 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          # Kita paksa npm untuk mengunduh library spesifik linux
+          npm install --os=linux --cpu=x64 @rollup/rollup-linux-x64-gnu
+          npm install
 
       - name: Build Library
         run: npm run build
