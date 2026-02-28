@@ -1,0 +1,53 @@
+@layer components {
+  .sentuh-tailwind-modal-root {
+    @apply fixed inset-0 z-[999] overflow-hidden;
+  }
+
+  .sentuh-tailwind-modal-scroll-container {
+    @apply fixed inset-0 overflow-y-auto outline-none;
+  }
+
+  .sentuh-tailwind-modal-wrapper {
+    @apply flex justify-center min-h-full transition-all duration-300 items-start;
+  }
+
+  .sentuh-tailwind-modal-centered {
+    @apply items-center;
+  }
+
+  .sentuh-tailwind-modal-content {
+    @apply relative w-full transition-all duration-300 ease-out overflow-hidden rounded-md;
+  }
+
+  .sentuh-tailwind-modal-scrollable {
+    @apply max-h-[90vh] flex flex-col;
+  }
+
+  .sentuh-tailwind-modal-screen {
+    @apply min-h-screen rounded-none p-0;
+  }
+
+  .sentuh-tailwind-modal-backdrop {
+    @apply fixed inset-0 bg-slate-900/20 transition-opacity duration-200 opacity-0;
+  }
+
+  .sentuh-tailwind-modal-backdrop-show {
+    @apply opacity-100;
+  }
+
+  .sentuh-tailwind-modal-enter {
+    @apply opacity-100 translate-y-0 scale-100;
+  }
+
+  .sentuh-tailwind-modal-leave {
+    @apply opacity-0 translate-y-10 scale-95;
+  }
+
+  .sentuh-tailwind-modal-shake {
+    @apply scale-[1.02];
+  }
+
+  .sentuh-tailwind-modal-inner-scroll {
+    @apply overflow-y-auto;
+  }
+}

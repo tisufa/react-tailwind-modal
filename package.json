@@ -16,7 +16,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/react-tailwind-modal.es.js",
       "require": "./dist/react-tailwind-modal.umd.js"
-    }
+    },
+    "./dist/react-tailwind-modal.css": "./dist/react-tailwind-modal.css"
   },
   "sideEffects": false,
   "scripts": {

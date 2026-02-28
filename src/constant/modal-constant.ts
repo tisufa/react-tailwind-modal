@@ -14,3 +14,7 @@ export const sizeMap = {
   "7xl": "max-w-7xl",
   screen: "max-w-full",
 };
+
+export const PREFIX = "sentuh-tailwind-modal";
+
+export const cls = (name: string) => `${PREFIX}-${name}`;
