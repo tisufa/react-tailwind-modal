@@ -1,0 +1,74 @@
+{
+  "name": "@sentuh/react-tailwind-modal",
+  "version": "0.1.0",
+  "description": "Lightweight and customizable React modal component styled with Tailwind CSS.",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "main": "dist/react-tailwind-modal.umd.js",
+  "module": "dist/react-tailwind-modal.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/react-tailwind-modal.es.js",
+      "require": "./dist/react-tailwind-modal.umd.js"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build:types": "npx tsc -p tsconfig.lib.json",
+    "build:js": "vite build",
+    "build": "npm run build:js && npm run build:types",
+    "lint": "eslint .",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.48.0",
+    "vite": "^7.3.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.2.0"
+  },
+  "keywords": [
+    "react",
+    "modal",
+    "react-modal",
+    "tailwind",
+    "tailwindcss",
+    "tailwind-modal",
+    "react-tailwind-modal",
+    "dialog",
+    "popup",
+    "accessible-modal",
+    "responsive-modal",
+    "ui-component"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tisufa/react-tailwind-modal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tisufa/react-tailwind-modal/issues"
+  },
+  "homepage": "https://github.com/tisufa/react-tailwind-modal#readme",
+  "author": "Titus Sutio Fanpula <titus@sentuh.dev>"
+}
