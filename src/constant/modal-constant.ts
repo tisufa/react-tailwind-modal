@@ -1,20 +1,19 @@
-export const sizeMap = {
-  "3xs": "max-w-[12rem]",
-  "2xs": "max-w-[15rem]",
-  xs: "max-w-xs",
-  sm: "max-w-sm",
-  md: "max-w-md",
-  lg: "max-w-lg",
-  xl: "max-w-xl",
-  "2xl": "max-w-2xl",
-  "3xl": "max-w-3xl",
-  "4xl": "max-w-4xl",
-  "5xl": "max-w-5xl",
-  "6xl": "max-w-6xl",
-  "7xl": "max-w-7xl",
-  screen: "max-w-full",
-};
-
 export const PREFIX = "sentuh-tailwind-modal";
+
+export const sizeMap: Record<string, string> = {
+  xs: `${PREFIX}-size-xs`,
+  sm: `${PREFIX}-size-sm`,
+  md: `${PREFIX}-size-md`,
+  lg: `${PREFIX}-size-lg`,
+  xl: `${PREFIX}-size-xl`,
+  "2xl": `${PREFIX}-size-2xl`,
+  "3xl": `${PREFIX}-size-3xl`,
+  "4xl": `${PREFIX}-size-4xl`,
+  "5xl": `${PREFIX}-size-5xl`,
+  "6xl": `${PREFIX}-size-6xl`,
+  "7xl": `${PREFIX}-size-7xl`,
+  full: `${PREFIX}-size-full`,
+  screen: `${PREFIX}-screen`,
+};
 
 export const cls = (name: string) => `${PREFIX}-${name}`;

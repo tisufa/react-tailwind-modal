@@ -2,14 +2,12 @@ import {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useState,
   type JSX,
 } from "react";
 import { sizeMap } from "../constant/modal-constant.js";
 import { ActiveModalProvider } from "../context/ModalContext.js";
 import type { ModalComponentType, ModalOptionsProps } from "../types/modal.js";
-
 interface Props {
   onClose: () => void;
   onChange: (value: any) => void;
@@ -45,26 +43,6 @@ export const ModalItem = forwardRef<RefProps, Props>(
       return () => window.removeEventListener("keydown", handleKeyDown);
     }, [options.keyboard]);
 
-    const modalConfig = useMemo(() => {
-      const size = options?.size || "md";
-      const maxWidthClass = sizeMap[size] || sizeMap.md;
-      return {
-        wrapper: `flex justify-center min-h-full transition-all duration-300 ${options.centered ? "items-center" : "items-start"} ${
-          options?.wrapperClassName || ""
-        }`,
-        content: [
-          `relative w-full transition-all duration-300 ease-out`,
-          options.scrollable ? "max-h-[90vh] flex flex-col" : "h-auto",
-          maxWidthClass,
-          size === "screen" ? "min-h-screen" : "rounded-md p-6",
-          "overflow-hidden",
-          options?.contentClassName || "",
-        ]
-          .filter(Boolean)
-          .join(" "),
-      };
-    }, [options]);
-
     const handleChange = (result: any) => {
       setIsShow(false);
       onChange(result);
@@ -85,51 +63,52 @@ export const ModalItem = forwardRef<RefProps, Props>(
     };
 
     return (
-      <div className="fixed inset-0 z-[999] overflow-hidden">
+      <div className="sentuh-tailwind-modal-wrapper">
         {options.backdrop !== false && (
           <div
-            className={`fixed inset-0 bg-slate-900/20 transition-opacity duration-200 ${
-              isShow ? "opacity-100" : "opacity-0"
+            className={`sentuh-tailwind-modal-backdrop ${
+              isShow ? "sentuh-tailwind-modal-backdrop-show" : ""
             } ${options?.backdropClassName}`}
             onClick={handleCloseFromBackdrop}
             aria-hidden="true"
           />
         )}
 
-        <div className="fixed inset-0 overflow-y-auto outline-none">
+        <div
+          className={`sentuh-tailwind-modal-content-wrapper  ${
+            options?.centered ? "sentuh-tailwind-modal-centered" : ""
+          }`}
+          onClick={handleCloseFromBackdrop}
+        >
           <div
-            className={modalConfig.wrapper}
-            onClick={handleCloseFromBackdrop}
+            role="dialog"
+            aria-modal="true"
+            tabIndex={-1}
+            className={`
+          sentuh-tailwind-modal-content
+          ${shake ? "sentuh-tailwind-modal-shake" : ""}
+          ${isShow ? "sentuh-tailwind-modal-content-show" : "sentuh-tailwind-modal-content-hide"}
+          ${sizeMap[options?.size || "md"]}
+        `}
+            onClick={(e) => e.stopPropagation()}
           >
-            <div
-              role="dialog"
-              aria-modal="true"
-              tabIndex={-1}
-              className={`
-            ${modalConfig.content}
-            ${shake ? "scale-[1.02]" : "rotate-0"}
-            ${
-              isShow
-                ? "opacity-100 translate-y-0 scale-100"
-                : "opacity-0 translate-y-10 scale-95"
-            }
-          `}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <ActiveModalProvider onClose={closeDialog}>
-                <div className={options.scrollable ? "overflow-y-auto" : ""}>
-                  {typeof Component === "function" ? (
-                    <Component
-                      model={model}
-                      onClose={closeDialog}
-                      onChange={handleChange}
-                    />
-                  ) : (
-                    <>{Component}</>
-                  )}
-                </div>
-              </ActiveModalProvider>
-            </div>
+            <ActiveModalProvider onClose={closeDialog}>
+              <div
+                className={
+                  options.scrollable ? "sentuh-tailwind-modal-scrollable" : ""
+                }
+              >
+                {typeof Component === "function" ? (
+                  <Component
+                    model={model}
+                    onClose={closeDialog}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <>{Component}</>
+                )}
+              </div>
+            </ActiveModalProvider>
           </div>
         </div>
       </div>
