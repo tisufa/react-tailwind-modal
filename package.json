@@ -1,6 +1,6 @@
 {
   "name": "@sentuh/react-tailwind-modal",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lightweight and customizable React modal component styled with Tailwind CSS.",
   "type": "module",
   "private": false,
