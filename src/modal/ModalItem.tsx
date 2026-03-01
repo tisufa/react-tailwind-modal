@@ -63,7 +63,9 @@ export const ModalItem = forwardRef<RefProps, Props>(
     };
 
     return (
-      <div className="sentuh-tailwind-modal-wrapper">
+      <div
+        className={`sentuh-tailwind-modal-wrapper ${options?.wrapperClassName}`}
+      >
         {options.backdrop !== false && (
           <div
             className={`sentuh-tailwind-modal-backdrop ${
@@ -89,6 +91,7 @@ export const ModalItem = forwardRef<RefProps, Props>(
           ${shake ? "sentuh-tailwind-modal-shake" : ""}
           ${isShow ? "sentuh-tailwind-modal-content-show" : "sentuh-tailwind-modal-content-hide"}
           ${sizeMap[options?.size || "md"]}
+          ${options.contentClassName}
         `}
             onClick={(e) => e.stopPropagation()}
           >
