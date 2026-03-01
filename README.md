@@ -17,36 +17,13 @@ npm install @sentuh/react-tailwind-modal
 
 #### ⚙️ Tailwind Configuration (Required)
 
-Because this library uses Tailwind utility classes, you must tell Tailwind to scan the library's files for styles. Choose **one** of the methods below based on your Tailwind version:
+Because this library uses Tailwind utility classes, you must tell Tailwind to scan the library's files for styles.
 
-**Option A: Using CSS `@source` (Tailwind v4+)**
+Add this line to your `main.ts`:
 
-Add this line to your main CSS file (e.g., app.css or index.css):
-
-```css
-@import "tailwindcss";
-
-/* Scan the library for Tailwind classes */
-@source "../node_modules/@sentuh/react-tailwind-modal/dist/**/*.js";
-```
-
-**Option B: Using `tailwind.config.js` (Tailwind v3)**
-
-Add the library path to the content array:
-
-```js
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@sentuh/react-tailwind-modal/dist/**/*.js", // <-- Add this
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
+```tsx
+// sentuh-tailwind-modal.css
+import "@sentuh/react-tailwind-modal/dist/react-tailwind-modal.css";
 ```
 
 ## 🚀 Demo
