@@ -2,12 +2,13 @@ import React, {
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from "react";
 import type {
   ModalComponentType,
+  ModalContextValue,
   ModalOptionsProps,
-  ModalProps,
 } from "../types/modal.js";
 import { ModalItem } from "./ModalItem.js";
 
@@ -20,19 +21,26 @@ interface ModalItemProps {
   ref?: React.RefObject<any>;
 }
 
-const Modal = forwardRef<ModalProps, any>((_, ref) => {
+const Modal = forwardRef<ModalContextValue, any>((_, ref) => {
   useImperativeHandle(ref, () => ({
     open: open,
-    close: closeLast,
+    close: closeLastModal,
     dismissAll,
   }));
   const [modals, setModals] = useState<ModalItemProps[]>([]);
+  const originalOverflowRef = useRef<string | null>(null);
+
   useEffect(() => {
-    document.body.style.overflow = modals.length ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [modals]);
+    if (typeof document === "undefined") return;
+    if (modals.length > 0) {
+      if (originalOverflowRef.current === null)
+        originalOverflowRef.current = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = originalOverflowRef.current ?? "";
+      originalOverflowRef.current = null;
+    }
+  }, [modals.length]);
 
   const open = (
     component: ModalComponentType,
@@ -47,20 +55,20 @@ const Modal = forwardRef<ModalProps, any>((_, ref) => {
     });
   };
 
-  const handleChange = (result: any, modal: ModalItemProps) => {
+  const handleClose = (result: any, modal: ModalItemProps) => {
     modal.resolve(result);
     setTimeout(() => {
       setModals((prev) => prev.filter((m) => m.id !== modal.id));
     }, 200);
   };
 
-  const closeLast = () => {
+  const closeLastModal = (result?: any) => {
     if (!modals.length) return;
     const lastModal = modals[modals.length - 1];
-    lastModal.ref?.current?.close?.();
+    lastModal.ref?.current?.close?.(result);
   };
 
-  const handleClose = (modal: ModalItemProps) => {
+  const handleDismiss = (modal: ModalItemProps) => {
     setTimeout(() => {
       setModals((prev) => prev.filter((m) => m.id !== modal.id));
     }, 200);
@@ -80,8 +88,8 @@ const Modal = forwardRef<ModalProps, any>((_, ref) => {
           model={modal.model}
           options={modal.options}
           component={modal.component}
-          onClose={() => handleClose(modal)}
-          onChange={(result) => handleChange(result, modal)}
+          onDismiss={() => handleDismiss(modal)}
+          onClose={(result) => handleClose(result, modal)}
           ref={modal.ref}
         />
       ))}

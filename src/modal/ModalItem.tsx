@@ -7,20 +7,22 @@ import {
 } from "react";
 import { sizeMap } from "../constant/modal-constant.js";
 import { ActiveModalProvider } from "../context/ModalContext.js";
-import type { ModalComponentType, ModalOptionsProps } from "../types/modal.js";
-interface Props {
-  onClose: () => void;
-  onChange: (value: any) => void;
+import type {
+  ModalComponentType,
+  ModalOptionsProps,
+  ModalProps,
+} from "../types/modal.js";
+interface Props extends ModalProps {
   component: ModalComponentType;
-  model: any;
   options?: ModalOptionsProps;
 }
+
 interface RefProps {
   close: () => void;
 }
 export const ModalItem = forwardRef<RefProps, Props>(
   (
-    { onClose, onChange, component: Component, model, options = {} }: Props,
+    { onDismiss, onClose, component: Component, model, options = {} }: Props,
     ref,
   ): JSX.Element => {
     const [isShow, setIsShow] = useState(false);
@@ -37,29 +39,37 @@ export const ModalItem = forwardRef<RefProps, Props>(
 
     useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
-        if (options.keyboard !== false && e.key === "Escape") closeDialog();
+        if (options.keyboard !== false && e.key === "Escape") dismissDialog();
       };
       window.addEventListener("keydown", handleKeyDown);
       return () => window.removeEventListener("keydown", handleKeyDown);
     }, [options.keyboard]);
 
-    const handleChange = (result: any) => {
-      setIsShow(false);
-      onChange(result);
+    const handleClose = (result: any) => {
+      closeDialog(result);
     };
 
-    const handleCloseFromBackdrop = () => {
+    const closeDialog = (result?: any) => {
+      setIsShow(false);
+      onClose(result);
+    };
+
+    const handleDismissFromBackdrop = () => {
       if (options?.backdrop === "static") {
         setShake(true);
         setTimeout(() => setShake(false), 300);
         return;
       }
-      closeDialog();
+      dismissDialog();
     };
 
-    const closeDialog = () => {
+    const handleDismiss = () => {
+      dismissDialog();
+    };
+
+    const dismissDialog = () => {
       setIsShow(false);
-      onClose();
+      onDismiss();
     };
 
     return (
@@ -71,7 +81,7 @@ export const ModalItem = forwardRef<RefProps, Props>(
             className={`sentuh-tailwind-modal-backdrop ${
               isShow ? "sentuh-tailwind-modal-backdrop-show" : ""
             } ${options?.backdropClassName}`}
-            onClick={handleCloseFromBackdrop}
+            onClick={handleDismissFromBackdrop}
             aria-hidden="true"
           />
         )}
@@ -80,7 +90,7 @@ export const ModalItem = forwardRef<RefProps, Props>(
           className={`sentuh-tailwind-modal-content-wrapper  ${
             options?.centered ? "sentuh-tailwind-modal-centered" : ""
           }`}
-          onClick={handleCloseFromBackdrop}
+          onClick={handleDismissFromBackdrop}
         >
           <div
             role="dialog"
@@ -95,7 +105,10 @@ export const ModalItem = forwardRef<RefProps, Props>(
         `}
             onClick={(e) => e.stopPropagation()}
           >
-            <ActiveModalProvider onClose={closeDialog}>
+            <ActiveModalProvider
+              onClose={handleClose}
+              onDismiss={handleDismiss}
+            >
               <div
                 className={
                   options.scrollable ? "sentuh-tailwind-modal-scrollable" : ""
@@ -104,8 +117,8 @@ export const ModalItem = forwardRef<RefProps, Props>(
                 {typeof Component === "function" ? (
                   <Component
                     model={model}
-                    onClose={closeDialog}
-                    onChange={handleChange}
+                    onDismiss={handleDismiss}
+                    onClose={handleClose}
                   />
                 ) : (
                   <>{Component}</>
