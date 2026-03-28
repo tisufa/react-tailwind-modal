@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1] - 2026-03-28
+
+### Fixed
+
+- **CSS Style Leaking:** Switched from `@import` to `@reference "tailwindcss"` to prevent the library's base styles (Preflight) from leaking into and overriding the parent application's global styles.
+
+- **Bundle Optimization:** Reduced the final CSS bundle size by referencing Tailwind's theme and utilities instead of bundling the entire Tailwind base engine.
+
 ## [1.0.0] - 2026-03-15
 
 ### ⚠ Breaking Changes
