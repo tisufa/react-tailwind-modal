@@ -1,6 +1,6 @@
 # @sentuh/react-tailwind-modal
 
-A lightweight React modal library built with Tailwind CSS. It provides a declarative and promise-based way to manage modals without cluttering your components with isOpen states.
+A lightweight React modal library built with Tailwind CSS. It provides a declarative and **promise-based** way to manage modals without cluttering your components with isOpen states.
 
 #### Key Features
 
@@ -15,16 +15,25 @@ A lightweight React modal library built with Tailwind CSS. It provides a declara
 npm install @sentuh/react-tailwind-modal
 ```
 
-#### ⚙️ Tailwind Configuration (Required)
+#### ⚙️ Style Integration
 
-Because this library uses Tailwind utility classes, you must tell Tailwind to scan the library's files for styles.
+Since this library is `v4-native`, you should import its stylesheet into your main CSS file (e.g., `index.css` or `app.css`). This allows the Tailwind v4 engine to process and bundle the utility classes correctly:
 
-Add this line to your `main.ts`:
-
-```tsx
-// sentuh-tailwind-modal.css
-import "@sentuh/react-tailwind-modal/dist/react-tailwind-modal.css";
+```css
+/* In your main CSS file */
+@import "tailwindcss";
+@import "@sentuh/react-tailwind-modal/style.css";
 ```
+
+**Note:** If you are using Vite 6+, ensure the `@tailwindcss/vite` plugin is active in your configuration.
+
+### 📋 Requirements
+
+To ensure full compatibility with this v4-native library, your project must meet:
+
+- **React:** `>= 18.0.0` (Supports 18, 19, and future versions)
+- **Tailwind CSS:** `^4.0.0` (Strictly requires Tailwind v4 engine)
+- **Node.js:** `>= 20.0.0`
 
 ## 🚀 Demo
 

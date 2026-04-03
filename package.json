@@ -1,10 +1,11 @@
 {
   "name": "@sentuh/react-tailwind-modal",
   "version": "1.0.1",
-  "description": "Lightweight and customizable React modal component styled with Tailwind CSS.",
+  "description": "Simple, promise-based React modal component optimized for Tailwind CSS v4.",
   "type": "module",
   "private": false,
   "license": "MIT",
+  "author": "Titus Sutio Fanpula <titus@sentuh.dev>",
   "main": "dist/react-tailwind-modal.umd.js",
   "module": "dist/react-tailwind-modal.es.js",
   "style": "dist/react-tailwind-modal.css",
@@ -18,20 +19,22 @@
       "import": "./dist/react-tailwind-modal.es.js",
       "require": "./dist/react-tailwind-modal.umd.js"
     },
-    "./dist/react-tailwind-modal.css": "./dist/react-tailwind-modal.css"
+    "./style.css": "./dist/react-tailwind-modal.css"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
-    "build:types": "npx tsc -p tsconfig.lib.json",
-    "build:js": "vite build",
-    "build": "npm run build:js && npm run build:types",
-    "lint": "eslint .",
     "dev": "vite",
-    "preview": "vite preview"
+    "build:js": "vite build",
+    "build:types": "npx tsc -p tsconfig.lib.json",
+    "build": "npm run build:js && npm run build:types",
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "peerDependencies": {
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -52,17 +55,13 @@
   },
   "keywords": [
     "react",
-    "modal",
-    "react-modal",
-    "tailwind",
     "tailwindcss",
-    "tailwind-modal",
+    "tailwind-v4",
+    "promise-based-modal",
+    "simple-modal",
     "react-tailwind-modal",
-    "dialog",
-    "popup",
-    "accessible-modal",
-    "responsive-modal",
-    "ui-component"
+    "modal",
+    "dialog"
   ],
   "repository": {
     "type": "git",
@@ -72,7 +71,6 @@
     "url": "https://github.com/tisufa/react-tailwind-modal/issues"
   },
   "homepage": "https://github.com/tisufa/react-tailwind-modal#readme",
-  "author": "Titus Sutio Fanpula <titus@sentuh.dev>",
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.59.0"
   }

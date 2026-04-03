@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2026-04-03
+
+### Changed
+
+- **Peer Dependencies:** Updated `react` and `react-dom` requirements to `>=18.0.0` to explicitly support React 18 and 19.
+- **Package Exports:** Refined `package.json` exports for better compatibility with modern bundlers and to fix CSS specifier resolution issues.
+
+### Docs
+
+- **Requirements:** Added a dedicated section to `README.md` to clarify mandatory support for **React 18+**, **Tailwind CSS v4**, and **Node.js 20+**.
+- **Style Integration:** Updated the documentation with the correct CSS import guide specifically for Tailwind v4 native projects.
+
 ## [1.0.1] - 2026-03-28
 
 ### Fixed
